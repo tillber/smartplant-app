@@ -1,0 +1,47 @@
+<div class="card card-register mx-auto mt-5">
+      <div class="card-header">Register an Account</div>
+      <div class="card-body">
+        {{#if existingUser}}
+          <div class="alert alert-dismissible alert-danger">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <i class="fas fa-times-circle"></i> <strong>User already exists!</strong> Please choose another email-address.
+          </div>
+  			{{/if}}
+        <form method="post" action="/users/register">
+          <div class="form-group">
+            <div class="form-row">
+              <div class="col-md-6">
+                <label for="firstName">First name</label>
+                <input type="text" name="firstName" class="form-control" placeholder="First name" required="required" autofocus="autofocus">
+              </div>
+              <div class="col-md-6">
+                <label for="lastName">Last name</label>
+                <input type="text" name="lastName" class="form-control" placeholder="Last name" required="required">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputEmail">Email address</label>
+            <input type="email" name="email" class="form-control" placeholder="Email address" required="required">
+          </div>
+          <div class="form-group">
+            <div class="form-row">
+              <div class="col-md-6">
+                <label for="inputPassword">Password</label>
+                <input type="password" name="password" class="form-control" placeholder="Password" required="required">
+              </div>
+              <div class="col-md-6">
+                <label for="confirmPassword">Confirm password</label>
+                <input type="password" name="confirmPassword" class="form-control" placeholder="Confirm password" required="required">
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-block" type="submit">Register</button>
+          <small id="emailHelp" class="form-text text-muted">Without your consent, we'll never share your information with anyone else than you.</small>
+        </form>
+        <hr>
+        <div class="text-center">
+          <a class="small" href="/users/login">Already have an account?</a>
+        </div>
+      </div>
+    </div>

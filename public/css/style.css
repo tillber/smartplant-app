@@ -1,0 +1,74 @@
+.plant-card-right-title{
+	font-size: 0.8rem;
+	line-height: 1.25rem;
+	text-align: right;
+}
+.plant-card-middle-title{
+	font-size: 0.8rem;
+	line-height: 1.25rem;
+	text-align: center;
+}
+.plant-card-right-footer{
+	text-align: right;
+}
+.plant-preset{
+	font-size: 0.8rem;
+	margin-bottom: 0;
+}
+.edit-preset{
+	font-size: 0.8rem;
+	width: 100%;
+	margin-top: 1rem;
+}
+.logo{
+	height: 2rem;
+}
+.breadcrumb-button-li{
+	margin-top: -0.45rem;
+}
+.breadcrumb-button{
+	margin-left: 1.5rem;
+}
+.card-header-plant-right{
+	text-align: right;
+	letter-spacing: 0.25rem;
+}
+.card-header-plant{
+  padding: 0.25rem 0.75rem;
+  margin-bottom: 0;
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+.plant-card-text{
+	font-size: 0.8rem;
+}
+.plant-card-footer{
+	height: 1rem;
+	margin-bottom: 0.5rem;
+	letter-spacing: 0;
+}
+.plant-card-footer-right{
+	text-align: right;
+	letter-spacing: .25rem;
+	
+}
+.plant-card-avatar{
+	height: 1.5rem;
+	margin-right: 0.5rem;
+}
+.fs-8{
+	font-size: 0.8rem;
+}
+.bc-button{
+	text-decoration: none;
+}
+.bc-button:hover{
+	text-decoration: none;
+}
+#inputDescription{
+	resize: none;
+}
+.plant-image{
+	border-radius: 0.25rem;
+}
