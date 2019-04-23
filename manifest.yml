@@ -1,0 +1,6 @@
+services:
+- name: IBM-application
+  memory: 128M
+  buildpack: sdk-for-nodejs
+  services:
+  - Matterhorn
