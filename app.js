@@ -1,7 +1,6 @@
 var express = require('express');
 var path = require('path');
 var exphbs = require('express-handlebars');
-var LocalStrategy = require('passport-local').Strategy;
 var bodyParser = require('body-parser')
 var app = express();
 
@@ -16,7 +15,7 @@ var IoTApp  = require('./application/application.js');
   cfenv will use the file defined by vcapFile instead.
   You can export these local json files from IBM Cloud!
 */
-var app_env = cfenv.getAppEnv({vcapFile: 'vcap.json'});
+var app_env = cfenv.getAppEnv();
 const IOT_PLATFORM = "Matterhorn";
 
 /*Retrieve Cloud Foundry environment variables.*/
