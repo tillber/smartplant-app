@@ -1,10 +1,15 @@
 /* Socket setup. */
 var socket = io();
 var chartData = null;
+
+function DisplayMsg(msg) {
+        $('#console').append('<span class="cmd_line">' + msg + '</span>');
+      }
+
 socket.on('connect', function(){DisplayMsg("Connected");});
 socket.on('broadcast', function(data){
-	chartData = [JSON.parse(data).humidity, JSON.parse(data).ph, JSON.parse(data).temp, null]
-	Console.log('Hello World ' + chartData);
+	//chartData = [JSON.parse(data).humidity, JSON.parse(data).ph, JSON.parse(data).temp, null]
+	console.log('Hello World ' + data);
 });
 socket.on('disconnect', function(){});
 socket.on('error', (error) => {console.log(error)});

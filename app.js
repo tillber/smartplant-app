@@ -15,7 +15,7 @@ var IoTApp = require('./application/application.js');
   cfenv will use the file defined by vcapFile instead.
   You can export these local json files from IBM Cloud!
 */
-var app_env = cfenv.getAppEnv();
+var app_env = cfenv.getAppEnv({vcapFile: 'vcap.json'});
 const IOT_PLATFORM = "Matterhorn";
 
 /*Retrieve Cloud Foundry environment variables.*/
@@ -25,7 +25,7 @@ var application = new IoTApp(credentials.org, credentials.apiKey, credentials.ap
 /* Application is an event emitter, so we listen for the payload event we defined in application.js!*/
 application.on('payload', function(data) {
   /* We then broadcast to our clients.*/
-  ws.emit('broadcast', data);
+  ws.emit('broadcast', JSON.parse(data).temp);
 });
 
 // View engine
