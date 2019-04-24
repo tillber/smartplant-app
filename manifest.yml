@@ -1,5 +1,5 @@
 applications:
-- name: Mont Blanc 2
+- name: Mount69
   random-route: true
   memory: 128M
   buildpack: sdk-for-nodejs
