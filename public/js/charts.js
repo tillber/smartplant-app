@@ -4,6 +4,7 @@ var chartData = null;
 socket.on('connect', function(){DisplayMsg("Connected");});
 socket.on('broadcast', function(data){
 	chartData = [JSON.parse(data).humidity, JSON.parse(data).ph, JSON.parse(data).temp, null]
+	Console.log('Hello World ' + chartData);
 });
 socket.on('disconnect', function(){});
 socket.on('error', (error) => {console.log(error)});
