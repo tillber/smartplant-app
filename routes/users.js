@@ -52,7 +52,7 @@ router.post('/register', function(req, res){
 router.post('/login', function (req, resp) {
 	var email = req.body.email;
 	var password = req.body.password;
-
+  /*
 	var dbhandler = new DBHandler();
 	dbhandler.RetrieveUser(email, function(error, user){
 		if(error) console.error(error);
@@ -73,7 +73,7 @@ router.post('/login', function (req, resp) {
 		}else{
 			resp.render('login', {falseUser:true});
 		}
-	});
+	});*/
 });
 
 router.get('/users', function(req, res){

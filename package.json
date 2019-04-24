@@ -48,7 +48,6 @@
         "express-session": "^1.16.1",
         "flash": "^1.1.0",
         "fstream": "^1.0.11",
-        "ibm_db": "git+https://git@github.com/ibmdb/node-ibm_db.git",
         "ibmiotf": "^0.2.41",
         "jquery": "^3.4.0",
         "jquery.easing": "^1.4.1",
