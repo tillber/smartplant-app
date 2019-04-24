@@ -1,6 +1,6 @@
 /*require the ibm_db module*/
 var ibmdb = require('ibm_db');
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcrypt-nodejs');
 var User = require("../models/user");
 
 console.log("Test program to access DB2 sample database");

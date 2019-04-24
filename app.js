@@ -21,13 +21,13 @@ var IoTApp  = require('./application/application.js');
 var app_env = cfenv.getAppEnv({vcapFile: 'vcap.json'});
 const IOT_PLATFORM = "Matterhorn";
 
-/* Retrieve Cloud Foundry environment variables. */
+/*Retrieve Cloud Foundry environment variables.*/
 var credentials = app_env.getServiceCreds(IOT_PLATFORM);
 var application = new IoTApp(credentials.org, credentials.apiKey, credentials.apiToken);
 
-/* Application is an event emitter, so we listen for the payload event we defined in application.js! */
+/* Application is an event emitter, so we listen for the payload event we defined in application.js!*/
 application.on('payload', function(data) {
-  /* We then broadcast to our clients.  */
+  /* We then broadcast to our clients.*/
   ws.emit('broadcast', data);
 });
 
@@ -47,6 +47,6 @@ app.use('/users', users);
 app.use('/', routes);
 app.use('/index', routes);
 
-/*app.set('port', (process.env.PORT || 3000));
-app.listen(app.get('port'));*/
+app.set('port', (process.env.PORT || 3000));
+app.listen(app.get('port'));
 http.listen(app_env.port || 4096, function() {});
