@@ -1,0 +1,57 @@
+{
+  "services": {
+
+    "AvailabilityMonitoring": [
+        {
+            "label": "AvailabilityMonitoring",
+            "provider": null,
+            "plan": "Lite",
+            "name": "availability-monitoring-auto",
+            "tags": [
+                "ibm_created",
+                "bluemix_extensions",
+                "dev_ops",
+                "lite"
+            ],
+            "instance_name": "availability-monitoring-auto",
+            "binding_name": null,
+            "credentials": {
+                "cred_url": "https://broker.eu-gb.availabilitymonitoring.cloud.ibm.com",
+                "token": "VXHZ4qQwLGBxA05GbKc+vZ3TQZhzyrQwl53PDJDqkMBDAXvUlqHzzKupMZnSO3xJwz1MpUh7AwfgDM6Vqi1kU9CynjJaFXBNOd0kUsQLKCk="
+            },
+            "syslog_drain_url": null,
+            "volume_mounts": []
+        }
+    ],
+    "iotf-service": [
+        {
+            "label": "iotf-service",
+            "provider": null,
+            "plan": "iotf-service-free",
+            "name": "Matterhorn",
+            "tags": [
+                "internet_of_things",
+                "Internet of Things",
+                "ibm_created",
+                "ibm_dedicated_public",
+                "lite"
+            ],
+            "instance_name": "Matterhorn",
+            "binding_name": null,
+            "credentials": {
+                "iotCredentialsIdentifier": "a2g6k39sl6r5",
+                "mqtt_host": "lrgbjk.messaging.internetofthings.ibmcloud.com",
+                "mqtt_u_port": 1883,
+                "mqtt_s_port": 8883,
+                "http_host": "lrgbjk.internetofthings.ibmcloud.com",
+                "org": "lrgbjk",
+                "apiKey": "a-lrgbjk-0ciifmoafa",
+                "apiToken": "G_Y68n9?67@DBTrut_",
+                "error": null
+            },
+            "syslog_drain_url": null,
+            "volume_mounts": []
+        }
+    ]
+}
+}
