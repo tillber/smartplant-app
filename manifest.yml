@@ -4,4 +4,4 @@ applications:
   memory: 128M
   buildpack: sdk-for-nodejs
   services:
-  - IOT PLATFORM NAME
+  - Mont Blanc 2
