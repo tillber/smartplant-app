@@ -26,7 +26,7 @@
   "express-session": "^1.16.1",
   "flash": "^1.1.0",
   "fstream": "^1.0.11",
-  "ibm_db": "^2.5.0",
+  "ibm_db": "2.5.0",
   "ibmiotf": "0.2.x",
   "jquery": "^3.4.0",
   "jquery.easing": "^1.4.1",
