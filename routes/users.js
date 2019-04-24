@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 var DBHandler = require("../models/dbhandler");
 var User = require("../models/user");
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcrypt-nodejs');
 var jwt = require('jsonwebtoken');
 
 if (typeof localStorage === "undefined" || localStorage === null) {
