@@ -47,5 +47,6 @@ app.use('/users', users);
 app.use('/', routes);
 app.use('/index', routes);
 
-app.set('port', (process.env.PORT || 3000));
-app.listen(app.get('port'));
+/*app.set('port', (process.env.PORT || 3000));
+app.listen(app.get('port'));*/
+http.listen(app_env.port || 4096, function() {});
