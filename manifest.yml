@@ -1,5 +1,5 @@
 applications:
-- name: IBM-Application
+- name: Mont Blanc 2
   random-route: true
   memory: 128M
   buildpack: sdk-for-nodejs
