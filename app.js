@@ -7,7 +7,7 @@ var app = express();
 var http = require('http').Server(app);
 var ws = require("socket.io")(http);
 var cfenv = require('cfenv');
-var IoTApp  = require('./application/application.js');
+var IoTApp = require('./application/application.js');
 
 /*
   Get the app environment from Cloud Foundry,

@@ -2,6 +2,9 @@
     "title": "SB Admin",
     "name": "startbootstrap-sb-admin",
     "version": "5.0.3",
+    "scripts": {
+		    "start": "node app.js"
+	  },
     "description": "A one page app landing page HTML theme for Bootstrap.",
     "keywords": [
         "css",
