@@ -4,4 +4,4 @@ applications:
   memory: 128M
   buildpack: sdk-for-nodejs
   services:
-  - Mont Blanc 2
+  - Matterhorn
