@@ -5,7 +5,6 @@ var LocalStrategy = require('passport-local').Strategy;
 var bodyParser = require('body-parser')
 var app = express();
 
-var express = require('express');
 var http = require('http').Server(app);
 var ws = require("socket.io")(http);
 var cfenv = require('cfenv');
