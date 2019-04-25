@@ -1,7 +1,7 @@
 var express = require('express');
 var path = require('path');
 var exphbs = require('express-handlebars');
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
 var app = express();
 
 var http = require('http').Server(app);
