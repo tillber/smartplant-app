@@ -26,6 +26,7 @@
     "express-session": "^1.16.1",
     "flash": "^1.1.0",
     "fstream": "^1.0.11",
+    "ibm_db": "*",
     "ibmiotf": "0.2.x",
     "jquery": "^3.4.0",
     "jquery.easing": "^1.4.1",
@@ -48,9 +49,5 @@
     "tooltip.js": "^1.3.2",
     "unzipper": "^0.9.11"
   },
-  "repository": {},
-  "engines": {
-    "node": "7.x.x",
-    "npm": "4.2.0"
-  }
+  "repository": {}
 }
