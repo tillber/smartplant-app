@@ -47,6 +47,6 @@
  },
  "repository": {},
  "engines": {
-  "node": "10.x.x"
+  "node": "7.x.x"
  }
 }
