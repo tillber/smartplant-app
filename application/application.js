@@ -28,13 +28,14 @@ class Application extends EventEmitter {
 
       /* Subscribe to temperature event on device types of IBM-KTH-Demo and where the device ID is 0. */
       that.app_client.subscribeToDeviceEvents("IBM-KTH", "0", "device_data");
-
+      console.log("Hello World");
       /* On a data recieved, emit event. */
       that.app_client.on("deviceEvent", async function (deviceType, deviceId, eventType, format, payload) {
         //console.log("Device Event from :: " +deviceType + " : " + deviceId + " of event " + eventType + " with payload : " + payload);
         that.emit('payload', payload);
       });
     });
+    console.log("Hello 2");
   }
 }
 
