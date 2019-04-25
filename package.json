@@ -41,7 +41,6 @@
     "q": "^1.5.1",
     "req-flash": "0.0.3",
     "request": "^2.88.0",
-    "node-gyp": "4.0.0",
     "socket.io": "2.2.x",
     "stable": "^0.1.8",
     "targz": "^1.0.1",
