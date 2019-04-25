@@ -1,5 +1,5 @@
 /*require the ibm_db module*/
-//var ibmdb = require('ibm_db');
+var ibmdb = require('ibm_db');
 var bcrypt = require('bcrypt-nodejs');
 var User = require("../models/user");
 
