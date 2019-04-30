@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 var DBHandler = require("../models/dbhandler");
 var User = require("../models/user");
-var bcrypt = require('bcrypt-nodejs');
+var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 
 if (typeof localStorage === "undefined" || localStorage === null) {
@@ -52,7 +52,7 @@ router.post('/register', function(req, res){
 router.post('/login', function (req, resp) {
 	var email = req.body.email;
 	var password = req.body.password;
-  
+
 	var dbhandler = new DBHandler();
 	dbhandler.RetrieveUser(email, function(error, user){
 		if(error) console.error(error);

@@ -46,4 +46,5 @@ app.use('/index', routes);
 
 /*app.set('port', (process.env.PORT || 3000));
 app.listen(app.get('port'));*/
+console.log(app_env.port);
 http.listen(app_env.port || 4096, function() {});
