@@ -2,6 +2,7 @@
 var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
+var DBHandler = require("../models/dbhandler");
 
 //Local storage
 if (typeof localStorage === "undefined" || localStorage === null) {
@@ -9,11 +10,8 @@ if (typeof localStorage === "undefined" || localStorage === null) {
   localStorage = new LocalStorage('./scratch');
 }
 
-router.get('/', verifyToken, (req, res) => {
-});
+router.get('/', verifyToken, function(req, res){
 
-//Get startpage
-router.get('/index', verifyToken, function(req, res){
 });
 
 //Verify token
@@ -25,7 +23,26 @@ function verifyToken(req, res, next){
 				//Malformed token
 				res.render('login', {token: false});
 			}else{
-				res.render('index', {token: true, name: decoded.firstname});
+        var dbhandler = new DBHandler();
+        dbhandler.RetrieveCustomPresets(localStorage.getItem('user'), function(error, presets){
+          if(error){
+            console.log(error);
+          }else{
+            if(presets != null){
+              var customPresets = presets;
+              dbhandler.RetrieveDefaultPresets(function(error, presets){
+                if(error){
+                  console.log(error);
+                }else{
+                  if(presets != null){
+                    var defaultPresets = presets;
+                    res.render('index', {token: true, name: decoded.firstname, defaultPresets: defaultPresets, customPresets: customPresets});
+                  }
+                }
+              });
+            }
+          }
+        });
 			}
 		});
 	}else{

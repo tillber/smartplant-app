@@ -20,13 +20,13 @@ const IOT_PLATFORM = "Matterhorn";
 
 /*Retrieve Cloud Foundry environment variables.*/
 var credentials = app_env.getServiceCreds(IOT_PLATFORM);
-var application = new IoTApp(credentials.org, credentials.apiKey, credentials.apiToken);
+var application;// = new IoTApp(credentials.org, credentials.apiKey, credentials.apiToken);
 
 /* Application is an event emitter, so we listen for the payload event we defined in application.js!*/
-application.on('payload', function(data) {
+/*application.on('payload', function(data) {
   /* We then broadcast to our clients.*/
-  ws.emit('broadcast', [JSON.parse(data).humidity, JSON.parse(data).ph, JSON.parse(data).temp]);
-});
+//  ws.emit('broadcast', [JSON.parse(data).humidity, JSON.parse(data).ph, JSON.parse(data).temp]);
+//});
 
 // View engine
 app.set('views', path.join(__dirname, 'views'));
@@ -40,9 +40,11 @@ app.use(bodyParser());
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var plants = require('./routes/plants');
 app.use('/users', users);
 app.use('/', routes);
 app.use('/index', routes);
+app.use('/plants', plants);
 
 /*app.set('port', (process.env.PORT || 3000));
 app.listen(app.get('port'));*/

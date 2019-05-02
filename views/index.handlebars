@@ -21,10 +21,17 @@
           </li>
           <li class="breadcrumb-item active">Overview</li>
 		  <li class="breadcrumb-button ml-auto"><a href="#" class="bc-button"  data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus fs-8 mr-1"></i> Add plant</a></li>
-		  <li class="breadcrumb-button"><a href="#" class="bc-button"><i class="fas fa-plus fs-8 mr-1"></i> Add preset</a></li>
+		  <li class="breadcrumb-button"><a href="#" class="bc-button" data-toggle="modal" data-target="#presetModal"><i class="fas fa-plus fs-8 mr-1"></i> Add preset</a></li>
 		  <li>
 		  </li>
         </ol>
+
+        {{#if addPreset}}
+          <div class="alert alert-dismissible alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <i class="fas fa-check-circle"></i> <strong>Successfully added preset!</strong> You can now use your new preset when adding plants!
+          </div>
+  			{{/if}}
 
         <!-- Icon Cards-->
         <div class="row">
@@ -303,7 +310,7 @@
   </div>
   <!-- /#wrapper -->
 
-  <!-- Modal -->
+  <!-- Plant Modal -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -324,29 +331,36 @@
 					</div>
 				</div>
 				<div class="col-md-8">
-					 <form>
+					 <form method="post" action="/plants/add-plant">
 					  <div class="form-group">
-						   <input type="name" id="inputName" class="form-control" placeholder="Name" required="required" autofocus="autofocus">
+						   <input type="name" name="plantName" class="form-control" placeholder="Name" required="required" autofocus="autofocus">
 					  </div>
 					  <div class="row">
 						<div class="col-md-9">
 							<div class="form-group">
-								<select class="custom-select">
-								  <option selected="">Select preset</option>
-								  <option value="1">One</option>
-								  <option value="2">Two</option>
-								  <option value="3">Three</option>
+								<select class="custom-select" name="plantPreset">
+                  <option selected="" disabled>Select preset</option>
+                  <optgroup label="Default presets">
+                  {{#each defaultPresets}}
+								          <option>{{this.PRESET_ID}} {{this.PRESET_NAME}}</option>
+                  {{/each}}
+                  </optgroup>
+                  <optgroup label="Custom presets">
+                  {{#each customPresets}}
+                          <option>{{this.PRESET_ID}} {{this.PRESET_NAME}}</option>
+                  {{/each}}
+                  </optgroup>
 								</select>
 							  </div>
 
 						</div>
 						<div class="col-md-3 pl-0">
-							<button type="button" class="btn btn-block btn-outline-primary">Add preset</button>
+							<button type="button" class="btn btn-block btn-outline-primary" data-toggle="modal" data-target="#presetModal" disabled>Add preset</button>
 						</div>
 					  </div>
 					  <div class="form-group">
 						<div class="form-label-group">
-						  <textarea rows="4" type="description" id="inputDescription" class="form-control" placeholder="Description" autofocus="autofocus"></textarea>
+						  <textarea rows="4" type="description" name="plantDescription" class="form-control" placeholder="Description" autofocus="autofocus"></textarea>
 						 </div>
 					  </div>
 					  <div class="row">
@@ -354,9 +368,6 @@
 							<div class="form-group">
 								<select class="custom-select" disabled>
 								  <option selected="">Select location</option>
-								  <option value="1">One</option>
-								  <option value="2">Two</option>
-								  <option value="3">Three</option>
 								</select>
 							  </div>
 
@@ -365,13 +376,71 @@
 							<button type="button" class="btn btn-block btn-outline-primary" disabled>Add location</button>
 						</div>
 					  </div>
-					</form>
 				</div>
 			</div>
 		  </div>
 		  <div class="modal-footer">
 			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-			<button type="button" class="btn btn-primary">Add plant</button>
+			<button type="submit" class="btn btn-primary">Add plant</button>
+      </form>
+		  </div>
+		</div>
+	  </div>
+	</div>
+
+  <!-- Preset modal -->
+	<div class="modal fade" id="presetModal" tabindex="-1" role="dialog" aria-labelledby="presetModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="presetModalLabel">Add preset</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+		  </div>
+		  <div class="modal-body">
+        <form method="post" action="/plants/add-preset">
+         <div class="form-group">
+            <input type="name" name="presetName" class="form-control" placeholder="Name" required="required" autofocus="autofocus">
+         </div>
+         <div class="form-group">
+           <label>Temperature (°C)</label>
+           <div class="row">
+             <div class="col-md-6">
+               <input type="number" placeholder="Min" class="form-control" name="presetTempMin" min="0" max="40">
+             </div>
+             <div class="col-md-6">
+               <input type="number" placeholder="Max" class="form-control" name="presetTempMax" min="0" max="40">
+             </div>
+           </div>
+         </div>
+         <div class="form-group">
+           <label>Acidity (pH)</label>
+           <div class="row">
+             <div class="col-md-6">
+               <input type="number" placeholder="Min" class="form-control" name="presetpHMin" min="0" max="14">
+             </div>
+             <div class="col-md-6">
+               <input type="number" placeholder="Max" class="form-control" name="presetpHMax" min="0" max="14">
+             </div>
+           </div>
+         </div>
+         <div class="form-group">
+           <label>Soil moisture (%)</label>
+           <div class="row">
+             <div class="col-md-6">
+               <input type="number" placeholder="Min" class="form-control" name="presetMoistMin" min="0" max="100">
+             </div>
+             <div class="col-md-6">
+               <input type="number" placeholder="Max" class="form-control" name="presetMoistMax" min="0" max="100">
+             </div>
+           </div>
+         </div>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+			<button type="submit" class="btn btn-primary">Add preset</button>
+    </form>
 		  </div>
 		</div>
 	  </div>
