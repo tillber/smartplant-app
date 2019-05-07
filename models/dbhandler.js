@@ -21,7 +21,7 @@ class DBHandler {
 						console.log("retrieveuser error: ", err.message);
 					} else{
 						if(users.length == 0){ //User doesn't exist
-							//console.log("returning null");
+							console.log("returning null");
 							callback(null, null);
 						} else{ //User exist
 							callback(null, new User(users[0].ID, users[0].FIRSTNAME, users[0].LASTNAME, users[0].USERNAME, users[0].PASSWORD));
@@ -94,15 +94,15 @@ class DBHandler {
 		ibmdb.open("DRIVER={DB2};DATABASE=BLUDB;UID=lvd92627;PWD=b0btn5bq^919cfmt;HOSTNAME=dashdb-txn-sbox-yp-lon02-01.services.eu-gb.bluemix.net;port=50000", function(err, conn)
 		{
 			if(err) {
-				console.error("error: ", err.message);
+				console.log("error: ", err.message);
 			} else{
 				conn.query("SELECT * FROM userinformation",
 				function(err, users, moreResultSets) {
 					if(err) {
-						console.error("error: ", err.message);
+						console.log("error: ", err.message);
 					} else{
 						if(users.length == 0){ //User doesn't exist
-							//console.log("returning null");
+							console.log("returning null");
 							callback(null, null);
 						} else{ //User exist
 							callback(null, users);
@@ -198,6 +198,58 @@ class DBHandler {
 						});
 	        });
         });
+			}
+		});
+	}
+
+	RetrievePresetById(id, callback){
+		ibmdb.open("DRIVER={DB2};DATABASE=BLUDB;UID=lvd92627;PWD=b0btn5bq^919cfmt;HOSTNAME=dashdb-txn-sbox-yp-lon02-01.services.eu-gb.bluemix.net;port=50000", function(err, conn)
+		{
+			if(err) {
+				console.log("retrieveuserbyid error: ", err.message);
+			} else{
+				conn.query("SELECT preset_name FROM preset WHERE preset_id='" + id + "'",
+				function(err, preset, moreResultSets) {
+					if(err) {
+						callback(err, null);
+					} else{
+						if(preset.length == 0){ //User doesn't exist
+							//console.log("returning null");
+							callback(null, null);
+						} else{ //User exist
+							callback(null, preset);
+						}
+					}
+
+					conn.close(function(){});
+				});
+			}
+		});
+	}
+
+	RetrievePlants(owner, callback){
+		ibmdb.open("DRIVER={DB2};DATABASE=BLUDB;UID=lvd92627;PWD=b0btn5bq^919cfmt;HOSTNAME=dashdb-txn-sbox-yp-lon02-01.services.eu-gb.bluemix.net;port=50000", function(err, conn)
+		{
+			if(err) {
+				console.error("retrieveplants error: ", err.message);
+			} else{
+				conn.query("SELECT * FROM userplant WHERE plant_owner='" + owner + "'",
+				function(err, plants, moreResultSets) {
+					if(err) {
+						callback(err, null);
+					} else{
+						if(plants.length == 0){ //User doesn't exist
+							//console.log("returning null");
+							callback(null, null);
+						} else{ //User exist
+							callback(null, plants);
+						}
+					}
+
+					conn.close(function(){
+						console.log("Connection Closed");
+					});
+				});
 			}
 		});
 	}
