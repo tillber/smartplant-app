@@ -86,7 +86,7 @@ var data = {
   labels: ['Moisture (%)', 'pH (pH)', 'Temp (°C)'],
 	datasets: [{
 			label: 'Actual',
-			data: [0, 0, 0],
+			data: [{min: 0, max: 0}, {min: 0, max: 0}, {min: 0, max: 0}],
 			backgroundColor: [
 				'rgba(255, 99, 132, 0.8)',
 				'rgba(255, 99, 132, 0.8)',
@@ -142,6 +142,7 @@ socket.on('connect', function(){
 	console.log('connected');
 });
 socket.on('broadcast', function(freshData){
+	//console.log(freshData);
 	myChart.data.datasets[0].data = freshData;
 	myChart.update();
 });

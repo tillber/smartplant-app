@@ -1,34 +1,10 @@
 {
-  "services": {
-
-    "AvailabilityMonitoring": [
-        {
-            "label": "AvailabilityMonitoring",
-            "provider": null,
-            "plan": "Lite",
-            "name": "availability-monitoring-auto",
-            "tags": [
-                "ibm_created",
-                "bluemix_extensions",
-                "dev_ops",
-                "lite"
-            ],
-            "instance_name": "availability-monitoring-auto",
-            "binding_name": null,
-            "credentials": {
-                "cred_url": "https://broker.eu-gb.availabilitymonitoring.cloud.ibm.com",
-                "token": "VXHZ4qQwLGBxA05GbKc+vZ3TQZhzyrQwl53PDJDqkMBDAXvUlqHzzKupMZnSO3xJwz1MpUh7AwfgDM6Vqi1kU9CynjJaFXBNOd0kUsQLKCk="
-            },
-            "syslog_drain_url": null,
-            "volume_mounts": []
-        }
-    ],
     "iotf-service": [
         {
             "label": "iotf-service",
             "provider": null,
             "plan": "iotf-service-free",
-            "name": "Matterhorn",
+            "name": "SmartplantII1302",
             "tags": [
                 "internet_of_things",
                 "Internet of Things",
@@ -36,22 +12,21 @@
                 "ibm_dedicated_public",
                 "lite"
             ],
-            "instance_name": "Matterhorn",
+            "instance_name": "SmartplantII1302",
             "binding_name": null,
             "credentials": {
                 "iotCredentialsIdentifier": "a2g6k39sl6r5",
-                "mqtt_host": "lrgbjk.messaging.internetofthings.ibmcloud.com",
+                "mqtt_host": "65u0fy.messaging.internetofthings.ibmcloud.com",
                 "mqtt_u_port": 1883,
                 "mqtt_s_port": 8883,
-                "http_host": "lrgbjk.internetofthings.ibmcloud.com",
-                "org": "lrgbjk",
-                "apiKey": "a-lrgbjk-0ciifmoafa",
-                "apiToken": "G_Y68n9?67@DBTrut_",
+                "http_host": "65u0fy.internetofthings.ibmcloud.com",
+                "org": "65u0fy",
+                "apiKey": "a-65u0fy-qp3ufs4a13",
+                "apiToken": "hMeJrDRh05kYxff_b0",
                 "error": null
             },
             "syslog_drain_url": null,
             "volume_mounts": []
         }
     ]
-}
 }

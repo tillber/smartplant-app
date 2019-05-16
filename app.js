@@ -9,6 +9,8 @@ var ws = require("socket.io")(http);
 var cfenv = require('cfenv');
 var IoTApp = require('./application/application.js');
 
+app.use(express.static(__dirname + '/public'));
+
 /*
   Get the app environment from Cloud Foundry,
   if you are developing locally (VCAP_SERVICES environment variable not set),
@@ -16,26 +18,23 @@ var IoTApp = require('./application/application.js');
   You can export these local json files from IBM Cloud!
 */
 var app_env = cfenv.getAppEnv({vcapFile: 'vcap.json'});
-const IOT_PLATFORM = "Matterhorn";
+const IOT_PLATFORM = "SmartplantII1302";
 
 /*Retrieve Cloud Foundry environment variables.*/
 var credentials = app_env.getServiceCreds(IOT_PLATFORM);
-var application;// = new IoTApp(credentials.org, credentials.apiKey, credentials.apiToken);
+var application = new IoTApp(credentials.org, credentials.apiKey, credentials.apiToken);
 
 /* Application is an event emitter, so we listen for the payload event we defined in application.js!*/
-/*application.on('payload', function(data) {
+application.on('payload', function(data) {
   /* We then broadcast to our clients.*/
-  //ws.emit('broadcast', [JSON.parse(data).humidity, JSON.parse(data).ph, JSON.parse(data).temp]);
-//});
+  //console.log(data);
+  ws.emit('broadcast', [{min: 0, max: JSON.parse(data).humidity}, {min: 0, max: JSON.parse(data).ph}, {min: 0, max: JSON.parse(data).temp}]);
+});
 
 // View engine
 app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({defaultLayout:'layout'}));
 app.set('view engine', 'handlebars');
-
-// Set static folder
-app.use(express.static(path.join(__dirname + '/public')));
-
 app.use(bodyParser());
 
 var routes = require('./routes/index');

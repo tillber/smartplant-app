@@ -2,6 +2,6 @@ applications:
 - name: Mount69
   random-route: true
   memory: 128M
-  buildpacks: [sdk-for-nodejs]
+  buildpacks: sdk-for-nodejs
   services:
-  - Matterhorn
+  - SmartplantII1302
