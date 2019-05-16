@@ -6122,7 +6122,7 @@ a.close.disabled {
 @media (min-width: 576px) {
   .modal-dialog {
     max-width: 1000px;
-    margin: 8rem auto;
+    margin: 4rem auto;
   }
   .modal-dialog-centered {
     min-height: calc(100% - (1.75rem * 2));

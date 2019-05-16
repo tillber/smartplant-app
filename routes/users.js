@@ -8,7 +8,6 @@ var jwt = require('jsonwebtoken');
 
 if (typeof localStorage === "undefined" || localStorage === null) {
   var LocalStorage = require('node-localstorage').LocalStorage;
-  localStorage = new LocalStorage('./scratch');
 }
 
 //Register
@@ -24,9 +23,10 @@ router.get('/login', verifyToken, function(req, res){
 
 //logout
 router.get('/logout', function(req, res){
+  var localStorage = new LocalStorage('./scratch');
 	localStorage.removeItem('token');
 	localStorage.removeItem('user');
-	res.redirect('../');
+	res.redirect('login');
 })
 
 //Register user
@@ -43,7 +43,7 @@ router.post('/register', function(req, res){
 			if(err){
 				res.render('register', {existingUser: true});
 			} else{
-				res.render('login', {reg: true});
+				res.redirect('login');
 			}
 		});
 	}
@@ -52,17 +52,20 @@ router.post('/register', function(req, res){
 router.post('/login', function (req, resp) {
 	var email = req.body.email;
 	var password = req.body.password;
-
+  var localStorage = new LocalStorage('./scratch');
+  console.log(email + " " + password);
 	var dbhandler = new DBHandler();
 	dbhandler.RetrieveUser(email, function(error, user){
-		if(error) console.error(error);
+		if(error) console.log(error);
 		if(user != null){
 			bcrypt.compare(password, user.getPassword(), function(err, res) {
-			  if(res && !err) {
-					jwt.sign({firstname: user.getFirstName(), username: user.getEmail(), password: user.getPassword()}, 'secretkey', (error, token) => {
+        if(err) console.log(err);
+			  if(res) {
+					jwt.sign({id: user.getId(), firstname: user.getFirstName(), username: user.getEmail(), password: user.getPassword()}, 'secretkey', (error, token) => {
 						if(!error){
 							localStorage.setItem('token', token);
 							localStorage.setItem('user', user.getId());
+              console.log("logged in: " + user.getEmail() + ", " + user.getId());
 							resp.redirect('../index');
 						}
 					});
@@ -71,6 +74,7 @@ router.post('/login', function (req, resp) {
 			  }
 			});
 		}else{
+      console.log("couldnt log in");
 			resp.render('login', {falseUser:true});
 		}
 	});
@@ -94,6 +98,7 @@ router.get('/users', function(req, res){
 
 //Verify token
 function verifyToken(req, res, next){
+  var localStorage = new LocalStorage('./scratch');
 	const token = localStorage.getItem('token');
 	if(token !== null){
 		jwt.verify(token, 'secretkey', function(error, decoded) {

@@ -13,10 +13,38 @@ if (typeof localStorage === "undefined" || localStorage === null) {
 
 router.get('/', function(req, res){});
 
-//Register
+//Configure plant
+router.post('/configure-plant-db', function(req, res){
+  if(req.body.submit == "delete"){
+    var plant = req.body.plantId;
+    deletePlant(plant, function(error){
+      if(error) console.log(error);
+      else{
+        console.log("deleted plant");
+        res.redirect('../');
+      }
+    });
+  } else if(req.body.submit == "cancel"){
+      res.redirect('../');
+  } else {
+    var id = req.body.plantId;
+    var name = req.body.plantName;
+    var preset = req.body.plantPreset;
+
+    editPlant(id, name, preset, function(error){
+        if(error) console.log(error);
+        else{
+          console.log("updated plant");
+          res.redirect('../');
+        }
+    });
+  }
+});
+
+//Add plant
 router.post('/add-plant', function(req, res){
   var name = req.body.plantName;
-	var preset = req.body.plantPreset.charAt(0);
+	var preset = req.body.plantPreset.split(" ")[0];
   var desc = req.body.plantDescription;
   var owner = localStorage.getItem('user');
 
@@ -31,6 +59,11 @@ router.post('/add-plant', function(req, res){
       res.redirect('../index');
     }
   })
+});
+
+//Delete plant
+router.post('/delete-plant', function(req, res){
+
 });
 
 //Add preset
@@ -50,9 +83,31 @@ router.post('/add-preset', function(req, res){
     if(err){
       console.log(err);
     }else{
-      res.redirect('../index');
+      res.render('../index');
     }
   });
 });
+
+function deletePlant(plant, callback){
+  var dbhandler = new DBHandler();
+  dbhandler.DeletePlant(plant, function(error){
+    if(error){
+      callback(error);
+    }else{
+      callback(null);
+    }
+  })
+}
+
+function editPlant(id, name, preset, callback){
+  var dbhandler = new DBHandler();
+  dbhandler.EditPlant(id, name, preset, function(error){
+    if(error){
+      callback(error);
+    }else{
+      callback(null);
+    }
+  });
+}
 
 module.exports = router;

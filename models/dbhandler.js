@@ -217,7 +217,7 @@ class DBHandler {
 							//console.log("returning null");
 							callback(null, null);
 						} else{ //User exist
-							callback(null, preset);
+							callback(null, preset[0]);
 						}
 					}
 
@@ -233,7 +233,7 @@ class DBHandler {
 			if(err) {
 				console.error("retrieveplants error: ", err.message);
 			} else{
-				conn.query("SELECT * FROM userplant WHERE plant_owner='" + owner + "'",
+				conn.query("SELECT * FROM userplant INNER JOIN preset ON userplant.plant_preset=preset.preset_id WHERE userplant.plant_owner='" + owner + "'",
 				function(err, plants, moreResultSets) {
 					if(err) {
 						callback(err, null);
@@ -243,6 +243,33 @@ class DBHandler {
 							callback(null, null);
 						} else{ //User exist
 							callback(null, plants);
+						}
+					}
+
+					conn.close(function(){
+						console.log("Connection Closed");
+					});
+				});
+			}
+		});
+	}
+
+	RetrievePlant(plant, callback){
+		ibmdb.open("DRIVER={DB2};DATABASE=BLUDB;UID=lvd92627;PWD=b0btn5bq^919cfmt;HOSTNAME=dashdb-txn-sbox-yp-lon02-01.services.eu-gb.bluemix.net;port=50000", function(err, conn)
+		{
+			if(err) {
+				console.error("retrieveplant error: ", err.message);
+			} else{
+				conn.query("SELECT * FROM userplant INNER JOIN preset ON userplant.plant_preset=preset.preset_id WHERE plant_id='" + plant + "'",
+				function(err, plant, moreResultSets) {
+					if(err) {
+						callback(err, null);
+					} else{
+						if(plant.length == 0){ //Plant doesn't exist
+							//console.log("returning null");
+							callback(null, null);
+						} else{ //User exist
+							callback(null, plant);
 						}
 					}
 
@@ -285,6 +312,71 @@ class DBHandler {
 			}
 		});
 	}
+
+	EditPlant(plant_id, new_name, new_preset, callback){
+	  ibmdb.open("DRIVER={DB2};DATABASE=BLUDB;UID=lvd92627;PWD=b0btn5bq^919cfmt;HOSTNAME=dashdb-txn-sbox-yp-lon02-01.services.eu-gb.bluemix.net;port=50000", function(err, conn)
+	  {
+	      if(err) {
+	          console.error("editplant error: ", err.message);
+	      } else{
+	          conn.prepare("UPDATE USERPLANT SET plant_name=?, plant_preset=? WHERE plant_id=?", function(err, stmt) {
+	           if (err) {
+	           //could not prepare for some reason
+	           console.log(err);
+	           return conn.closeSync();
+	         }
+
+	         //Bind and Execute the statment asynchronously
+	     	stmt.execute([new_name, new_preset, plant_id], function (err, result) {
+	       if(err) {
+             console.log(err);
+             callback(err);
+         }
+	       else {
+             result.closeSync();
+             callback(null);
+         }
+
+	       //Close the connection
+	       conn.close(function(err){});
+	          });
+	      });
+	      }
+	  });
+  }
+
+	DeletePlant(plant_id, callback){
+        ibmdb.open("DRIVER={DB2};DATABASE=BLUDB;UID=lvd92627;PWD=b0btn5bq^919cfmt;HOSTNAME=dashdb-txn-sbox-yp-lon02-01.services.eu-gb.bluemix.net;port=50000", function(err, conn)
+        {
+            if(err) {
+                console.error("deleteplant error: ", err.message);
+            } else{
+                conn.prepare("DELETE FROM USERPLANT WHERE plant_id=?", function(err, stmt) {
+                 if (err) {
+                 //could not prepare for some reason
+                 console.log(err);
+                 return conn.closeSync();
+               }
+
+               //Bind and Execute the statment asynchronously
+           stmt.execute([plant_id], function (err, result) {
+             if(err) {
+                         console.log(err);
+                         callback(err);
+                     }
+             else {
+                         result.closeSync();
+                         callback(null);
+                     }
+
+             //Close the connection
+             conn.close(function(err){});
+                });
+            });
+            }
+        });
+    }
+
 }
 
 module.exports = DBHandler;

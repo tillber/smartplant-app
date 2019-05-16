@@ -25,7 +25,7 @@ var application;// = new IoTApp(credentials.org, credentials.apiKey, credentials
 /* Application is an event emitter, so we listen for the payload event we defined in application.js!*/
 /*application.on('payload', function(data) {
   /* We then broadcast to our clients.*/
-//  ws.emit('broadcast', [JSON.parse(data).humidity, JSON.parse(data).ph, JSON.parse(data).temp]);
+  //ws.emit('broadcast', [JSON.parse(data).humidity, JSON.parse(data).ph, JSON.parse(data).temp]);
 //});
 
 // View engine
